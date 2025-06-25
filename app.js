@@ -4,10 +4,10 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const con = mysql.createConnection({
-    host: '',      
-    user: '',      
-    password: '',  
-    database: ''   
+    host: 'localhost',      
+    user: 'root',      
+    password: 'Batman',  
+    database: 'master'   
 });
 con.connect();
 
@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Agregar usuario
 app.post('/agregarUsuario', (req, res) => {
     const { id, nombre } = req.body;
     con.query(
@@ -31,7 +30,7 @@ app.post('/agregarUsuario', (req, res) => {
     );
 });
 
-// Consultar todos los usuarios
+
 app.get('/obtenerUsuario', (req, res) => {
     con.query('SELECT * FROM usuario', (err, respuesta) => {
         if (err) {
@@ -54,7 +53,7 @@ app.get('/obtenerUsuario', (req, res) => {
     });
 });
 
-// Buscar usuario por ID o nombre
+
 app.get('/buscarUsuarioAcciones', (req, res) => {
     const { id, nombre } = req.query;
     let query = 'SELECT * FROM usuario';
@@ -99,7 +98,7 @@ app.get('/buscarUsuarioAcciones', (req, res) => {
     });
 });
 
-// Editar usuario por ID
+
 app.post('/editarUsuario', (req, res) => {
     const { id, nuevoNombre } = req.body;
     con.query(
@@ -113,7 +112,7 @@ app.post('/editarUsuario', (req, res) => {
     );
 });
 
-// Eliminar usuario por ID
+
 app.post('/eliminarUsuario', (req, res) => {
     const { id } = req.body;
     con.query(
